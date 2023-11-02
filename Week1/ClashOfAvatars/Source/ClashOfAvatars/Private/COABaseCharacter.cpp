@@ -7,9 +7,8 @@
 
 // Sets default values
 ACOABaseCharacter::ACOABaseCharacter()  :
-
-	MaxHealth(0.0f),
 	Health(0.0f),
+	MaxHealth(0.0f),
 	HealingRate(10.0f),
 	WalkSpeed(200.0f)
 	
@@ -53,8 +52,36 @@ void ACOABaseCharacter::OnConstruction(const FTransform& Transform)
 void ACOABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (!bDead)
+	{
+		Health =FMath ::Min(MaxHealth,Health+HealingRate*DeltaTime);
+	}
 	
 }
+
+float ACOABaseCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+									AActor* DamageCauser)
+{
+	if (bDead) return 0.0f;
+	DamageAmount = ModifyDamage(DamageAmount);
+	Health -= DamageAmount;
+	GEngine->AddOnScreenDebugMessage(0, 1.0f, FColor::Red, FString::Printf(TEXT("Health: %f"), Health));
+
+	if (Health <= 0)
+	{
+		bDead = true;
+		APlayerController * PlayerController = Cast<APlayerController>(GetController());
+		if(PlayerController) DisableInput(PlayerController);
+		
+	}
+
+	return DamageAmount;
+}
+
+
+	
+
 
 
 

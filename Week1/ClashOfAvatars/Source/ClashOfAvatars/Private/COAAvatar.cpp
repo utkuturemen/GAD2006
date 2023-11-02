@@ -6,8 +6,8 @@
 ACOAAvatar::ACOAAvatar() :
 Stamina(0.0f),
 MaxStamina(100.0f),
-StaminaDrainRate(25.0f),
 StaminaGainRate(5.0f), 
+StaminaDrainRate(25.0f),
 RunSpeed(500.0f)
 {
 	
