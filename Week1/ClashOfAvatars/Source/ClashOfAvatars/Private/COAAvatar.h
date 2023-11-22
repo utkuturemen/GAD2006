@@ -24,7 +24,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "COA")
 	USpringArmComponent* SpringArm;
-
+	
 	UPROPERTY(EditAnywhere, Category="COA")
 	float RunSpeed;
 
