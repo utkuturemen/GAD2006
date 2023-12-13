@@ -24,6 +24,10 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	USpringArmComponent* SpringArm;
+	
+
+	virtual void BeginPlay() override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 
 	UPROPERTY(BlueprintReadWrite)
@@ -32,12 +36,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, ReplicatedUsing = OnRep_PlayerSpeedChanged)
 	float Speed;
 
+
 	UFUNCTION()
 	void OnRep_PlayerSpeedChanged();
-
-	virtual void BeginPlay() override;
-	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
-
+	
 	UFUNCTION(Server, Reliable)
 	void SetSpeedInServer(float _speed);
 
