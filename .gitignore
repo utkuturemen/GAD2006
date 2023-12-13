@@ -38,3 +38,6 @@
 /LabWork3/.idea
 
 
+/LabWork4/*.sln
+/LabWork4/Binaries
+/LabWork4/*.vsconfig
