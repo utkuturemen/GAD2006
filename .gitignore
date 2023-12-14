@@ -41,3 +41,8 @@
 /LabWork4/*.sln
 /LabWork4/Binaries
 /LabWork4/*.vsconfig
+/LabWork4/DerivedDataCache
+/LabWork4/Saved
+/LabWork4/Intermediate
+/LabWork4/.vs
+/LabWork4/Source

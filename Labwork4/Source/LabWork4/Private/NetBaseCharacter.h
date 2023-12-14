@@ -36,31 +36,9 @@ struct FSMeshAssetList : public FTableRowBase
 	TArray<UStaticMesh*> ListStatic;
 };
 
-USTRUCT(BlueprintType)
-struct FSBodyPartSelection
-{
-	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY()
-	int Indices[(int)EBodyPart::BP_COUNT];
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool isFemale;
-};
 
-USTRUCT(BlueprintType)
-struct FSPlayerInfo
-{
-	GENERATED_USTRUCT_BODY()
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FText NickName;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FSBodyPartSelection BodyParts;
-
-	bool Ready;
-};
 
 UCLASS()
 class ANetBaseCharacter : public ACharacter
@@ -84,22 +62,28 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-
+	UFUNCTION(BlueprintPure)
+	FString GetCustomizationData();
+	void ParseCustomizationData(FString BodyPartData);
 
 	UFUNCTION(BlueprintCallable)
 	void ChangeBodyPart(EBodyPart index, int value, bool DirectSet);
 
 	UFUNCTION(BlueprintCallable)
 	void ChangeGender(bool isFemale);
-
-	UPROPERTY(BlueprintReadWrite, ReplicatedUsing = OnRep_PlayerInfoChanged)
-	FSBodyPartSelection PartSelection;
+	
 
 	UFUNCTION(Server, Reliable)
 	void SubmitPlayerInfoToServer(FSPlayerInfo Info);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnPlayerInfoChanged();
+
 	UFUNCTION()
-	void OnRep_PlayerInfoChanged();
+	void CheckPlayerState();
+
+	UFUNCTION()
+	void CheckPlayerInfo();
 private:
 	UPROPERTY()
 	USkeletalMeshComponent* PartFace;
@@ -122,10 +106,20 @@ private:
 	UPROPERTY()
 	UStaticMeshComponent*PartEyeBrow;
 
-	static FSMeshAssetList* GetBodyPartList(EBodyPart part, bool isFemale);
+	
+
+	bool PlayerInfoReceived;
+
+	
+
+private:
+	int BodyPartIndices[EBodyPart::BP_COUNT];
 
 	void UpdateBodyParts();
 
+	static FSMeshAssetList* GetBodyPartList(EBodyPart part, bool isFemale);
+
+	FTimerHandle ClientDataCheckTimer;
 public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

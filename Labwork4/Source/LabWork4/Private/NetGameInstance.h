@@ -9,6 +9,52 @@
 /**
  *
  */
+UENUM(BlueprintType)
+enum class EPlayerTeam: uint8
+{
+	TEAM_Unknown,
+	TEAM_Blue,
+	TEAM_Red,
+};
+
+UENUM(BlueprintType)
+enum class EGameResults: uint8
+{
+	RESULT_Undefined,
+	RESULT_Lost,
+	RESULT_Won,
+	
+};
+USTRUCT(BlueprintType)
+struct FSPlayerInfo
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText NickName;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	FString CustomizationData;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	EPlayerTeam TeamID;
+
+
+
+	
+};
+
+USTRUCT(BlueprintType)
+struct FSBodyPartSelection
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY()
+	int Indices[(int)EBodyPart::BP_COUNT];
+
+	
+};
+
 UCLASS()
 class UNetGameInstance : public UGameInstance
 {
