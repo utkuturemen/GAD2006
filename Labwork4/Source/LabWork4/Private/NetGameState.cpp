@@ -1,7 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
+//#pragma optimize("",on)
 
 #include "NetGameState.h"
+#include "NetPlayerState.h"
+#include "NetBaseCharacter.h"
+#include "Net/UnrealNetwork.h"
 
 ANetGameState::ANetGameState():
 	WinningPlayer(-1)
@@ -11,9 +14,9 @@ ANetGameState::ANetGameState():
 
 
 
-void ANetGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&QuickLifeTimeProps) const
+void ANetGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&OutLifeTimeProps) const
 {
-	Super::GetLifetimeReplicatedProps(QuickLifeTimeProps);
+	Super::GetLifetimeReplicatedProps(OutLifeTimeProps);
 	DOREPLIFETIME(ANetGameState,WinningPlayer);
 	
 }

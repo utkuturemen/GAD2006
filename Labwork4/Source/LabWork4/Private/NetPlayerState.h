@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
 #include "NetGameInstance.h"
-#include "NetPlayerState.generated.h"
+#include "NetPlayerState.generated.h"	
 
 /**
  * 
@@ -17,8 +17,9 @@ class ANetPlayerState : public APlayerState
 	
 	
 public:
+	
 
-	UPROPERTY(BlueprintReadOnly,ReplicatedUsing =OnRep_PlayerInfo)
+	UPROPERTY(BlueprintReadOnly,ReplicatedUsing = OnRep_PlayerInfo)
 	FSPlayerInfo Data;
 
 	UPROPERTY(BlueprintReadOnly,Replicated)

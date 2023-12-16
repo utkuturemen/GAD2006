@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+#pragma once
 
 #include "NetPlayerState.h"
 #include "NetBaseCharacter.h"
@@ -7,25 +7,26 @@
 
 
 
-void ANetPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&QuickLifeTimeProps) const
+void ANetPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty> &OutLifeTimeProps) const
 {
-	Super::GetLifetimeReplicatedProps(QuickLifeTimeProps);
-	DOREPLIFETIME(ANetPlayerState,Data);
-	DOREPLIFETIME(ANetPlayerState,PlayerIndex);
+	Super::GetLifetimeReplicatedProps(OutLifeTimeProps);
+	DOREPLIFETIME(ANetPlayerState, Data);
+	DOREPLIFETIME(ANetPlayerState, PlayerIndex);
 }
 
 void ANetPlayerState::OnRep_PlayerInfo()
 {
 
-	ANetBaseCharacter*Char=Cast<ANetBaseCharacter>(GetPawn());
+	ANetBaseCharacter*  Char =Cast<ANetBaseCharacter>(GetPawn());
 
 	if (Char)
 	{
-		Char ->PlayerInfoReceived =true;
+		Char -> PlayerInfoReceived =true;
 	}
 	else
 	{
 		FTimerHandle PlayerInfoUpdateTimer;
-		GWorld->GetTimerManager().SetTimer(PlayerInfoUpdateTimer,this,&ANetPlayerState::OnRep_PlayerInfo,0.25f,false);
+		GWorld->GetTimerManager().SetTimer(PlayerInfoUpdateTimer,this,
+			&ANetPlayerState::OnRep_PlayerInfo,0.25f,false);
 	}
 }

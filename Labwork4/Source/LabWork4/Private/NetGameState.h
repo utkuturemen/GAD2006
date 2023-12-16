@@ -3,9 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "NetPlayerState.h"
 #include "GameFramework/GameStateBase.h"
 #include "NetGameState.generated.h"
+
+
+class ANetPlayerState;
+
 
 /**
  * 

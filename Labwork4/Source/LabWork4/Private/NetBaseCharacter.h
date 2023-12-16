@@ -52,7 +52,7 @@ public:
 
 	virtual void BeginPlay() override;
 	virtual void OnConstruction(const FTransform& Transform)override;
-	virtual void GetLifetimeReplicatedProps(TArray < class FLifetimeProperty >& OutLifetimeProps) const override;
+	virtual void GetLifetimeReplicatedProps(TArray <FLifetimeProperty>& OutLifetimeProps) const override;
 
 
 protected:
@@ -72,7 +72,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ChangeGender(bool isFemale);
 	
-
 	UFUNCTION(Server, Reliable)
 	void SubmitPlayerInfoToServer(FSPlayerInfo Info);
 
@@ -84,6 +83,8 @@ public:
 
 	UFUNCTION()
 	void CheckPlayerInfo();
+
+	bool PlayerInfoReceived;
 private:
 	UPROPERTY()
 	USkeletalMeshComponent* PartFace;
@@ -108,7 +109,7 @@ private:
 
 	
 
-	bool PlayerInfoReceived;
+	
 
 	
 
