@@ -14,9 +14,9 @@ ANetGameState::ANetGameState():
 
 
 
-void ANetGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&OutLifeTimeProps) const
+void ANetGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&OutLifetimeProps) const
 {
-	Super::GetLifetimeReplicatedProps(OutLifeTimeProps);
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ANetGameState,WinningPlayer);
 	
 }

@@ -7,9 +7,9 @@
 
 
 
-void ANetPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty> &OutLifeTimeProps) const
+void ANetPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty> &OutLifetimeProps) const
 {
-	Super::GetLifetimeReplicatedProps(OutLifeTimeProps);
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ANetPlayerState, Data);
 	DOREPLIFETIME(ANetPlayerState, PlayerIndex);
 }

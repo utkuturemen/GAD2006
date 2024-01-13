@@ -84,7 +84,7 @@ void ANetGameModeBase::AvatarsOverlapped(ANetAvatar* AvatarA, ANetAvatar* Avatar
 	}
 
 	FTimerHandle EndGameTimerHandle;
-	GWorld->GetTimerManager().SetTimer(EndGameTimerHandle,this,ANetGameModeBase::EndGame,2.5f,false);
+	GWorld->GetTimerManager().SetTimer(EndGameTimerHandle,this,&ANetGameModeBase::EndGame,2.5f,false);
 }
 
 void ANetGameModeBase::EndGame()

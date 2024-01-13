@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "NetGameInstance.h"
+#include "GameFramework/GameModeBase.h"
 
 void UNetGameInstance::Host(FString MapName, FSPlayerInfo Info)
 {

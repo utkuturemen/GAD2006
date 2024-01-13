@@ -73,11 +73,7 @@ void ANetBaseCharacter::OnConstruction(const FTransform& Transform)
 	UpdateBodyParts();
 }
 
-void ANetBaseCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(ANetBaseCharacter, PartSelection);
-}
+
 
 // Called every frame
 void ANetBaseCharacter::Tick(float DeltaTime)
@@ -110,6 +106,7 @@ void ANetBaseCharacter::ParseCustomizationData(FString BodyPartData)
 	}
 	
 }
+
 
 void ANetBaseCharacter::ChangeBodyPart(EBodyPart index, int value, bool DirectSet)
 {
@@ -183,7 +180,6 @@ void ANetBaseCharacter::CheckPlayerInfo()
 	{
 		ParseCustomizationData(State->Data.CustomizationData);
 		UpdateBodyParts();
-		OnPlayerInfoChanged();
 		SetActorHiddenInGame(false);
 	}
 	else
@@ -192,11 +188,6 @@ void ANetBaseCharacter::CheckPlayerInfo()
 	}
 }
 
-void ANetBaseCharacter::ChangeGender(bool isFemale)
-{
-	PartSelection.isFemale = isFemale;
-	UpdateBodyParts();
-}
 
 void ANetBaseCharacter::SubmitPlayerInfoToServer_Implementation(FSPlayerInfo Info)
 {

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "GameFramework/PlayerController.h"
+#include "NetGameInstance.h"
 #include "Runtime/Engine/Classes/Engine/DataTable.h"
 #include "Net/UnrealNetwork.h"
 #include "NetBaseCharacter.generated.h"
@@ -52,31 +52,23 @@ public:
 
 	virtual void BeginPlay() override;
 	virtual void OnConstruction(const FTransform& Transform)override;
-	virtual void GetLifetimeReplicatedProps(TArray <FLifetimeProperty>& OutLifetimeProps) const override;
-
-
-protected:
-	// Called when the game starts or when spawned
-
-public:	
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintPure)
 	FString GetCustomizationData();
+
 	void ParseCustomizationData(FString BodyPartData);
-
-	UFUNCTION(BlueprintCallable)
-	void ChangeBodyPart(EBodyPart index, int value, bool DirectSet);
-
-	UFUNCTION(BlueprintCallable)
-	void ChangeGender(bool isFemale);
-	
-	UFUNCTION(Server, Reliable)
-	void SubmitPlayerInfoToServer(FSPlayerInfo Info);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnPlayerInfoChanged();
+
+	UFUNCTION(BlueprintCallable)
+	void ChangeBodyPart(EBodyPart index, int value, bool DirectSet);
+	
+	UFUNCTION(Server, Reliable)
+	void SubmitPlayerInfoToServer(FSPlayerInfo Info);
 
 	UFUNCTION()
 	void CheckPlayerState();
@@ -85,7 +77,8 @@ public:
 	void CheckPlayerInfo();
 
 	bool PlayerInfoReceived;
-private:
+	
+	
 	UPROPERTY()
 	USkeletalMeshComponent* PartFace;
 
@@ -98,23 +91,22 @@ private:
 	UPROPERTY()
 	UStaticMeshComponent* PartEyes;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	USkeletalMeshComponent* PartHands;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	USkeletalMeshComponent* PartLegs;
 
 	UPROPERTY()
 	UStaticMeshComponent*PartEyeBrow;
 
 	
+	bool PLayerInfoReceived;
 
-	
-
-	
 
 private:
-	int BodyPartIndices[EBodyPart::BP_COUNT];
+	
+	int BodyPartIndices[static_cast<int>(EBodyPart::BP_COUNT)];
 
 	void UpdateBodyParts();
 
